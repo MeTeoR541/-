@@ -148,14 +148,191 @@ Horse::Horse() : Chess(4) {
 	return;
 }
 void Horse::move(Board& board, int x, int y, bool nowplayer) {
-
+	if (x + 2 < 10 && y + 1 < 9) {
+		if (board.map[x + 1][y] % 10 == 0) {
+			if (board.map[x + 2][y + 1] % 10 == 0 || board.BorR[x + 2][y + 1] != nowplayer)
+				board.map[x + 2][y + 1] += 10;
+		}
+	}
+	if (x + 2 < 10 && y - 1 >= 0) {
+		if (board.map[x + 1][y] % 10 == 0) {
+			if (board.map[x + 2][y - 1] % 10 == 0 || board.BorR[x + 2][y - 1] != nowplayer)
+				board.map[x + 2][y - 1] += 10;
+		}
+	}
+	if (x - 2 >= 0 && y + 1 < 9) {
+		if (board.map[x - 1][y] % 10 == 0) {
+			if (board.map[x - 2][y + 1] % 10 == 0 || board.BorR[x - 2][y + 1] != nowplayer)
+				board.map[x - 2][y + 1] += 10;
+		}
+	}
+	if (x - 2 >= 0 && y - 1 >= 0) {
+		if (board.map[x - 1][y] % 10 == 0) {
+			if (board.map[x - 2][y - 1] % 10 == 0 || board.BorR[x - 2][y - 1] != nowplayer)
+				board.map[x - 2][y - 1] += 10;
+		}
+	}
+	if (x + 1 < 10 && y + 2 < 9) {
+		if (board.map[x][y + 1] % 10 == 0) {
+			if (board.map[x + 1][y + 2] % 10 == 0 || board.BorR[x + 1][y + 2] != nowplayer)
+				board.map[x + 1][y + 2] += 10;
+		}
+	}
+	if (x - 1 >= 0 && y + 2 < 9) {
+		if (board.map[x][y - 1] % 10 == 0) {
+			if (board.map[x - 1][y + 2] % 10 == 0 || board.BorR[x - 1][y + 2] != nowplayer)
+				board.map[x - 1][y + 2] += 10;
+		}
+	}
+	if (x + 1 < 10 && y - 2 >= 0) {
+		if (board.map[x][y - 1] % 10 == 0) {
+			if (board.map[x + 1][y - 2] % 10 == 0 || board.BorR[x + 1][y - 2] != nowplayer)
+				board.map[x + 1][y - 2] += 10;
+		}
+	}
+	if (x - 1 >= 0 && y - 2 >= 0) {
+		if (board.map[x][y - 1] % 10 == 0) {
+			if (board.map[x - 1][y - 2] % 10 == 0 || board.BorR[x - 1][y - 2] != nowplayer)
+				board.map[x - 1][y - 2] += 10;
+		}
+	}
 }
 Elephant::Elephant() : Chess(5) {
 	return;
 }
+void Elephant::move(Board& board, int x, int y, bool nowplayer) {
+	if (nowplayer == true) {
+		if (x + 2 < 5 && y + 2 < 9) {
+			if (board.map[x + 1][y + 1] % 10 == 0) {
+				if (board.map[x + 2][y + 2] % 10 == 0 || board.BorR[x + 2][y + 2] != nowplayer)
+					board.map[x + 2][y + 2] += 10;
+			}
+		}
+		if (x + 2 < 5 && y - 2 >= 0) {
+			if (board.map[x + 1][y - 1] % 10 == 0) {
+				if (board.map[x + 2][y - 2] % 10 == 0 || board.BorR[x + 2][y - 2] != nowplayer)
+					board.map[x + 2][y - 2] += 10;
+			}
+		}
+		if (x - 2 >= 0 && y + 2 < 9) {
+			if (board.map[x - 1][y + 1] % 10 == 0) {
+				if (board.map[x - 2][y + 2] % 10 == 0 || board.BorR[x - 2][y + 2] != nowplayer)
+					board.map[x - 2][y + 2] += 10;
+			}
+		}
+		if (x - 2 >= 0 && y - 2 >= 0) {
+			if (board.map[x - 1][y - 1] % 10 == 0) {
+				if (board.map[x - 2][y - 2] % 10 == 0 || board.BorR[x - 2][y - 2] != nowplayer)
+					board.map[x - 2][y - 2] += 10;
+			}
+		}
+	}
+	else {
+		if (x + 2 < 10 && y + 2 < 9) {
+			if (board.map[x + 1][y + 1] % 10 == 0) {
+				if (board.map[x + 2][y + 2] % 10 == 0 || board.BorR[x + 2][y + 2] != nowplayer)
+					board.map[x + 2][y + 2] += 10;
+			}
+		}
+		if (x + 2 < 10 && y - 2 >= 0) {
+			if (board.map[x + 1][y - 1] % 10 == 0) {
+				if (board.map[x + 2][y - 2] % 10 == 0 || board.BorR[x + 2][y - 2] != nowplayer)
+					board.map[x + 2][y - 2] += 10;
+			}
+		}
+		if (x - 2 >= 5 && y + 2 < 9) {
+			if (board.map[x - 1][y + 1] % 10 == 0) {
+				if (board.map[x - 2][y + 2] % 10 == 0 || board.BorR[x - 2][y + 2] != nowplayer)
+					board.map[x - 2][y + 2] += 10;
+			}
+		}
+		if (x - 2 >= 5 && y - 2 >= 0) {
+			if (board.map[x - 1][y - 1] % 10 == 0) {
+				if (board.map[x - 2][y - 2] % 10 == 0 || board.BorR[x - 2][y - 2] != nowplayer)
+					board.map[x - 2][y - 2] += 10;
+			}
+		}
+	}
+}
 Advisor::Advisor() : Chess(6) {
 	return;
 }
+void Advisor::move(Board& board, int x, int y, bool nowplayer) {
+	if (nowplayer == true) {
+		if (x + 1 < 3 && y + 1 < 6) {
+			if (board.map[x + 1][y + 1] % 10 == 0 || board.BorR[x + 1][y + 1] != nowplayer)
+				board.map[x + 1][y + 1] += 10;
+		}
+		if (x + 1 < 3 && y - 1 >= 3) {
+			if (board.map[x + 1][y - 1] % 10 == 0 || board.BorR[x + 1][y - 1] != nowplayer)
+				board.map[x + 1][y - 1] += 10;
+		}
+		if (x - 1 >= 0 && y + 1 < 6) {
+			if (board.map[x - 1][y + 1] % 10 == 0 || board.BorR[x - 1][y + 1] != nowplayer)
+				board.map[x - 1][y + 1] += 10;
+		}
+		if (x - 1 >= 0 && y - 1 >= 3) {
+			if (board.map[x - 1][y - 1] % 10 == 0 || board.BorR[x - 1][y - 1] != nowplayer)
+				board.map[x - 1][y - 1] += 10;
+		}
+	}
+	else {
+		if (x + 1 < 10 && y + 1 < 6) {
+			if (board.map[x + 1][y + 1] % 10 == 0 || board.BorR[x + 1][y + 1] != nowplayer)
+				board.map[x + 1][y + 1] += 10;
+		}
+		if (x + 1 < 10 && y - 1 >= 3) {
+			if (board.map[x + 1][y - 1] % 10 == 0 || board.BorR[x + 1][y - 1] != nowplayer)
+				board.map[x + 1][y - 1] += 10;
+		}
+		if (x - 1 >= 7 && y + 1 < 6) {
+			if (board.map[x - 1][y + 1] % 10 == 0 || board.BorR[x - 1][y + 1] != nowplayer)
+				board.map[x - 1][y + 1] += 10;
+		}
+		if (x - 1 >= 7 && y - 1 >= 3) {
+			if (board.map[x - 1][y - 1] % 10 == 0 || board.BorR[x - 1][y - 1] != nowplayer)
+				board.map[x - 1][y - 1] += 10;
+		}
+	}
+}
 General::General() : Chess(7) {
 	return;
+}
+void General::move(Board& board, int x, int y, bool nowplayer) {
+	if (nowplayer == true) {
+		if (x + 1 < 3) {
+			if (board.map[x + 1][y] % 10 == 0 || board.BorR[x + 1][y] != nowplayer)
+				board.map[x + 1][y] += 10;
+		}
+		if (x - 1 >= 0) {
+			if (board.map[x - 1][y] % 10 == 0 || board.BorR[x - 1][y] != nowplayer)
+				board.map[x - 1][y] += 10;
+		}
+		if (y + 1 < 6) {
+			if (board.map[x][y + 1] % 10 == 0 || board.BorR[x][y + 1] != nowplayer)
+				board.map[x][y + 1] += 10;
+		}
+		if (y - 1 >= 3) {
+			if (board.map[x][y - 1] % 10 == 0 || board.BorR[x][y - 1] != nowplayer)
+				board.map[x][y - 1] += 10;
+		}
+	}
+	else {
+		if (x + 1 < 10) {
+			if (board.map[x + 1][y] % 10 == 0 || board.BorR[x + 1][y] != nowplayer)
+				board.map[x + 1][y] += 10;
+		}
+		if (x - 1 >= 7) {
+			if (board.map[x - 1][y] % 10 == 0 || board.BorR[x - 1][y] != nowplayer)
+				board.map[x - 1][y] += 10;
+		}
+		if (y + 1 < 6) {
+			if (board.map[x][y + 1] % 10 == 0 || board.BorR[x][y + 1] != nowplayer)
+				board.map[x][y + 1] += 10;
+		}
+		if (y - 1 >= 3) {
+			if (board.map[x][y - 1] % 10 == 0 || board.BorR[x][y - 1] != nowplayer)
+				board.map[x][y - 1] += 10;
+		}
+	}
 }
