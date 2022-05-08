@@ -5,17 +5,20 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QMessageBox>
+#include <QPoint>
 #include <QDialog>
+#include <QMouseEvent>
 #include <QVBoxLayout>
 #include "Board.h"
+
 using namespace std;
 class Viewer :public QDialog{
 	Q_OBJECT
 public:
 	explicit Viewer(QWidget *parent = nullptr);
-	void drawChess(QPainter& ptr, int x,int y, int value,bool whoose);
-	void drawBoard(QPainter& ptr, const Board& board);
-	void paintEvent(QPaintEvent *);
+	void choose1Slot();
+	void btn2();
+	void btn3();
 private:
 	bool start;
 	bool load;

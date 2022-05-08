@@ -55,6 +55,7 @@ public:
 				BorR[i][j] = copy.BorR[i][j];
 			}
 		}
+		return *this;
 	}
 	int map[10][9];
 	bool BorR[10][9];//true代表黑方；false代表紅方

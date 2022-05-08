@@ -10,10 +10,10 @@ Board Chess::change(const Board board, int from_x, int from_y, int to_x, int to_
 	temp.map[from_x][from_y] = 0;
 	temp.map[to_x][to_y] = this->Chess_value;
 	if (nowplayer == true) {
-		temp.map[to_x][to_y] = true;
+		temp.BorR[to_x][to_y] = true;
 		return temp;
 	}
-	temp.map[to_x][to_y] = false;
+	temp.BorR[to_x][to_y] = false;
 	return temp;
 }
 void Chess::move(Board& board, int x, int y, bool nowplayer) {
@@ -47,7 +47,7 @@ void Soldier::move(Board& board, int x, int y, bool nowplayer){
 		return;
 	}
 	if (x - 1 >= 0)
-		board.map[x - 1][y] = 8;
+		board.map[x - 1][y] += 10;
 	return;
 }
 Cannon::Cannon() : Chess(2) {
@@ -62,7 +62,7 @@ void Cannon::move(Board& board, int x, int y, bool nowplayer) {
 					board.map[x + i][y] += 10;
 				break;
 			}
-			check == true;
+			check = true;
 		}
 		else if (check == false)
 			board.map[x + i][y] += 10;
@@ -75,7 +75,7 @@ void Cannon::move(Board& board, int x, int y, bool nowplayer) {
 					board.map[x - i][y] += 10;
 				break;
 			}
-			check == true;
+			check = true;
 		}
 		else if (check == false)
 			board.map[x - i][y] += 10;
@@ -88,7 +88,7 @@ void Cannon::move(Board& board, int x, int y, bool nowplayer) {
 					board.map[x][y + i] += 10;
 				break;
 			}
-			check == true;
+			check = true;
 		}
 		else if (check == false)
 			board.map[x][y + i] += 10;
@@ -101,7 +101,7 @@ void Cannon::move(Board& board, int x, int y, bool nowplayer) {
 					board.map[x][y - i] += 10;
 				break;
 			}
-			check == true;
+			check = true;
 		}
 		else if (check == false)
 			board.map[x][y - i] += 10;

@@ -1,25 +1,36 @@
 #pragma once
 #include <iostream>
-#include <QMouseEvent>
-#include <QPoint>
+#include <QDialog>
 #include <vector>
+#include <QWidget>
+#include <QApplication>
+#include <QPainter>
+#include <QPoint>
+#include <QMouseEvent>
 #include "Board.h"
 #include "Chess.h"
 #include "Viewer.h"
 using namespace std;
-class GameManager {
+class GameManager :public QWidget{
+	Q_OBJECT
 private:
+	QPoint now;
+	Board temp_board;
+	int now_value;
+	int temp_x, temp_y;
 	bool isEnd;
+	bool pick;//true 拿到自己的棋子
 	bool current_player;//true 黑方；false 紅方
 public:
 	Board board;
-	Viewer viewer;
-	GameManager();
+	vector<Chess>chess;
+	//Viewer viewer;
+	GameManager(QWidget* parent = 0);
 	void newGame(QPainter& ptr);
-	QPoint turnMsPoint(QPoint pt);
-	void mouseReleaseEvent(QMouseEvent* ev);
-	bool click(QPoint pt);
-
+	void drawChess(QPainter& ptr, int x, int y, int value, bool whoose);
+	void drawBoard(QPainter& ptr, const Board& board);
+	void paintEvent(QPaintEvent*);
+	void mouseReleaseEvent(QMouseEvent* event);
 
 	void playGameManger();
 	bool getNowplayer();
