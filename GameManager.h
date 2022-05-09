@@ -25,17 +25,13 @@ private:
 public:
 	Board board;
 	vector<Chess>chess;
-	//Viewer viewer;
+	Viewer viewer;
 	GameManager(QWidget* parent = 0);
-	void newGame(QPainter& ptr);
-	void drawChess(QPainter& ptr, int x, int y, int value, bool whoose);
-	void drawBoard(QPainter& ptr, const Board& board);
+	
 	void paintEvent(QPaintEvent*);
 	void mouseReleaseEvent(QMouseEvent* event);
 	bool cantmove(const Board& board, bool player);
 	bool kingDie(const Board& board, bool player);
-
 	void playGameManger();
-	bool getNowplayer();
-	bool getisEnd();
+
 };

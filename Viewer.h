@@ -7,18 +7,16 @@
 #include <QMessageBox>
 #include <QPoint>
 #include <QDialog>
-#include <QMouseEvent>
 #include <QVBoxLayout>
 #include "Board.h"
 
 using namespace std;
-class Viewer :public QDialog{
-	Q_OBJECT
+class Viewer{
 public:
-	explicit Viewer(QWidget *parent = nullptr);
-	void choose1Slot();
-	void btn2();
-	void btn3();
+	Viewer();
+	void drawhomepage(QPainter& ptr);
+	void drawChess(QPainter& ptr, int x, int y, int value, bool whoose);
+	void drawBoard(QPainter& ptr, const Board& board);
 private:
 	bool start;
 	bool load;
