@@ -9,6 +9,7 @@ public:
 	Chess(int value);
 	int getValue();
 	Board change(const Board board, int from_x, int from_y, int to_x, int y, bool nowplayer);
+	void kingWking(Board& board, int x, int y, bool player);
 	virtual void move(Board& board, int x, int y, bool nowplayer);
 };
 class Soldier:public Chess{

@@ -18,6 +18,7 @@ private:
 	Board temp_board;
 	int now_value;
 	int temp_x, temp_y;
+	int now_where; // 0首頁 1進入遊戲
 	bool isEnd;
 	bool pick;//true 拿到自己的棋子
 	bool current_player;//true 黑方；false 紅方
@@ -31,6 +32,8 @@ public:
 	void drawBoard(QPainter& ptr, const Board& board);
 	void paintEvent(QPaintEvent*);
 	void mouseReleaseEvent(QMouseEvent* event);
+	bool cantmove(const Board& board, bool player);
+	bool kingDie(const Board& board, bool player);
 
 	void playGameManger();
 	bool getNowplayer();

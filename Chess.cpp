@@ -19,10 +19,35 @@ Board Chess::change(const Board board, int from_x, int from_y, int to_x, int to_
 void Chess::move(Board& board, int x, int y, bool nowplayer) {
 	return;
 }
+void Chess::kingWking(Board& board, int x, int y, bool player) {
+	Board temp = board;
+	int from_x = x;
+	int from_y = y;
+	if (player == true) {
+		for (int i = from_x + 1; i < 10; i++) {
+			if (temp.map[i][from_y] % 10 != 0 && temp.map[i][from_y] % 10 != 7) 
+				return;
+			else if (temp.map[i][from_y] % 10 == 7) {
+				board.map[i][from_y] += 10;
+				return;
+			}
+		}
+		return;
+	}
+	for (int i = from_x - 1; i >= 0; i--) {
+		if (temp.map[i][from_y] % 10 != 0 && temp.map[i][from_y] % 10 != 7)
+			return;
+		else if (temp.map[i][from_y] % 10 == 7) {
+			board.map[i][from_y] += 10;
+			return;
+		}
+	}
+	return;
+}
 Soldier::Soldier() :Chess(1) {
 	return;
 }
-void Soldier::move(Board& board, int x, int y, bool nowplayer){
+void Soldier::move(Board& board, int x, int y, bool nowplayer) {
 	if (nowplayer == true) {
 		if (x >= 5) {
 			if (x + 1 < 10)
@@ -300,6 +325,7 @@ General::General() : Chess(7) {
 }
 void General::move(Board& board, int x, int y, bool nowplayer) {
 	if (nowplayer == true) {
+		kingWking(board, x, y, nowplayer);
 		if (x + 1 < 3) {
 			if (board.map[x + 1][y] % 10 == 0 || board.BorR[x + 1][y] != nowplayer)
 				board.map[x + 1][y] += 10;
@@ -318,6 +344,7 @@ void General::move(Board& board, int x, int y, bool nowplayer) {
 		}
 	}
 	else {
+		kingWking(board, x, y, nowplayer);
 		if (x + 1 < 10) {
 			if (board.map[x + 1][y] % 10 == 0 || board.BorR[x + 1][y] != nowplayer)
 				board.map[x + 1][y] += 10;

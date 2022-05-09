@@ -307,6 +307,8 @@ void GameManager::playGameManger() {
         current_player = !current_player;
         temp_board = board;
         pick = false;
+        if (cantmove(board, current_player) || kingDie(board, current_player))
+            isEnd = true;
         update();
     }
     else {
@@ -314,6 +316,62 @@ void GameManager::playGameManger() {
         pick = false;
         update();
     }
+}
+bool GameManager::cantmove(const Board& board, bool player) {
+    Soldier s;
+    Cannon c;
+    Rook r;
+    Horse h;
+    Elephant e;
+    Advisor a;
+    General g;
+    Board temp;
+    temp = board;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (temp.map[i][j] % 10 != 0 && temp.BorR[i][j] == player) {
+                switch (temp.map[i][j]) {
+                case 1:
+                    s.move(temp, i, j, current_player);
+                    break;
+                case 2:
+                    c.move(temp, i, j, current_player);
+                    break;
+                case 3:
+                    r.move(temp, i, j, current_player);
+                    break;
+                case 4:
+                    h.move(temp, i, j, current_player);
+                    break;
+                case 5:
+                    e.move(temp, i, j, current_player);
+                    break;
+                case 6:
+                    a.move(temp, i, j, current_player);
+                    break;
+                case 7:
+                    g.move(temp, i, j, current_player);
+                    break;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (temp.map[i][j] > 9)
+                return false;
+        }
+    }
+    return true;
+}
+bool GameManager::kingDie(const Board& board, bool player) {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (board.map[i][j] % 10 == 7 && board.BorR[i][j] == player)
+                return false;
+        }
+    }
+    return true;
 }
 bool GameManager::getNowplayer() {
 	return current_player;
