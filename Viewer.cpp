@@ -1,6 +1,16 @@
 ﻿#include "Viewer.h"
 Viewer::Viewer(){
-   
+}
+void Viewer::drawWinMessage(bool winner) {
+    if (winner == true) {
+
+    }
+}
+void Viewer::drawhomepage(QPainter& ptr) {
+    ptr.setBrush(QColor(238, 239, 235));
+    ptr.drawRect(30, 270, 120, 50);
+    ptr.drawRect(30, 350, 120, 50);
+    ptr.drawRect(30, 430, 120, 50);
 }
 void Viewer::drawChess(QPainter& ptr, int x, int y, int value, bool whoose) {
     if (value > 9) {

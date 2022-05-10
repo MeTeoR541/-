@@ -3,6 +3,7 @@ GameManager::GameManager(QWidget* parent) :QWidget(parent){
 	current_player = false;
 	isEnd = false;
     pick = false;
+    now_where = 0;
     Soldier s;
     chess.push_back(s);
     Cannon c;
@@ -18,18 +19,38 @@ GameManager::GameManager(QWidget* parent) :QWidget(parent){
     General g;
     chess.push_back(g);
 }
+void GameManager::newGame() {
+    current_player = false;
+    isEnd = false;
+    pick = false;
+    Board newboard;
+    this->board = newboard;
+}
 void GameManager::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     this->setMinimumWidth(460);
     this->setMinimumHeight(510);
-    viewer.drawBoard(painter,board);
+    if (now_where == 0)
+        viewer.drawhomepage(painter);
+    else if (now_where == 1)
+        viewer.drawBoard(painter, board);
 }
 void GameManager::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() != Qt::LeftButton || isEnd == true)
         return;
     QPoint temp = event->pos();
     now = temp;
-    playGameManger();
+    if (now_where == 0) {
+        if (now.y() >= 270 && now.y() <= 320 && now.x() <= 150 && now.x() >= 30) {
+            now_where = 1;
+            newGame();
+            update();
+        }
+        else if (now.y() >= 430 && now.y() <= 480 && now.x() <= 150 && now.x() >= 30)
+            close();
+    }
+    else if(now_where==1)
+        playGameManger();
 }
 void GameManager::playGameManger() {
     int x = now.x() - 6;

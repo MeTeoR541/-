@@ -18,7 +18,7 @@ private:
 	Board temp_board;
 	int now_value;
 	int temp_x, temp_y;
-	int now_where; // 0首頁 1進入遊戲
+	int now_where; // 0首頁 1進入遊戲	2將軍畫面	3勝利畫面
 	bool isEnd;
 	bool pick;//true 拿到自己的棋子
 	bool current_player;//true 黑方；false 紅方
@@ -27,7 +27,8 @@ public:
 	vector<Chess>chess;
 	Viewer viewer;
 	GameManager(QWidget* parent = 0);
-	
+	void newGame();
+
 	void paintEvent(QPaintEvent*);
 	void mouseReleaseEvent(QMouseEvent* event);
 	bool cantmove(const Board& board, bool player);
