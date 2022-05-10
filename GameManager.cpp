@@ -153,7 +153,7 @@ void GameManager::playGameManger() {
         current_player = !current_player;
         temp_board = board;
         pick = false;
-        if (cantmove(board, current_player) || kingDie(board, current_player))
+        if (cantmove(board, current_player) || kingDie(board, current_player) || movewillDie(board, current_player))
             isEnd = true;
         update();
     }
@@ -209,6 +209,249 @@ bool GameManager::cantmove(const Board& board, bool player) {
         }
     }
     return true;
+}
+Board GameManager::nextmove(const Board& board, bool player) {
+    Soldier s;
+    Cannon c;
+    Rook r;
+    Horse h;
+    Elephant e;
+    Advisor a;
+    General g;
+    Board temp;
+    temp = board;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (temp.map[i][j] % 10 != 0 && temp.BorR[i][j] == player) {
+                switch (temp.map[i][j]) {
+                case 1:
+                    s.move(temp, i, j, !player);
+                    break;
+                case 2:
+                    c.move(temp, i, j, !player);
+                    break;
+                case 3:
+                    r.move(temp, i, j, !player);
+                    break;
+                case 4:
+                    h.move(temp, i, j, !player);
+                    break;
+                case 5:
+                    e.move(temp, i, j, !player);
+                    break;
+                case 6:
+                    a.move(temp, i, j, !player);
+                    break;
+                case 7:
+                    g.move(temp, i, j, !player);
+                    break;
+                }
+            }
+        }
+    }
+    return temp;
+}
+bool GameManager::movewillDie(const Board& board, bool player) {
+    Soldier s;
+    Cannon c;
+    Rook r;
+    Horse h;
+    Elephant e;
+    Advisor a;
+    General g;
+    bool isTrue = false;
+    bool jump = false;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (board.map[i][j] % 10 != 0 && board.BorR[i][j] == player) {
+                if (board.map[i][j] == 1) {
+                    Board temp;
+                    temp = board;
+                    Board test;
+                    s.move(temp, i, j, player);
+                    for (int k = 0; k < 10; k++) {
+                        for (int m = 0; m < 9; m++) {
+                            if (temp.map[k][m] > 9) {
+                                test = board;
+                                test = s.change(test, i, j, k, m, player);
+                                test = nextmove(test, player);
+                                if (test.findKingValue(player) > 10)
+                                    isTrue = true;
+                                else {
+                                    isTrue = false;
+                                    jump = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (jump == true)
+                            break;
+                    }
+                    if (jump == true)
+                        break;
+                }
+                else if (board.map[i][j] == 2) {
+                    Board temp;
+                    temp = board;
+                    Board test;
+                    c.move(temp, i, j, player);
+                    for (int k = 0; k < 10; k++) {
+                        for (int m = 0; m < 9; m++) {
+                            if (temp.map[k][m] > 9) {
+                                test = board;
+                                test = c.change(test, i, j, k, m, player);
+                                test = nextmove(test, player);
+                                if (test.findKingValue(player) > 10)
+                                    isTrue = true;
+                                else {
+                                    isTrue = false;
+                                    jump = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (jump == true)
+                            break;
+                    }
+                    if (jump == true)
+                        break;
+                }
+                else if (board.map[i][j] == 3) {
+                    Board temp;
+                    temp = board;
+                    Board test;
+                    r.move(temp, i, j, player);
+                    for (int k = 0; k < 10; k++) {
+                        for (int m = 0; m < 9; m++) {
+                            if (temp.map[k][m] > 9) {
+                                test = board;
+                                test = r.change(test, i, j, k, m, player);
+                                test = nextmove(test, player);
+                                if (test.findKingValue(player) > 10)
+                                    isTrue = true;
+                                else {
+                                    isTrue = false;
+                                    jump = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (jump == true)
+                            break;
+                    }
+                    if (jump == true)
+                        break;
+                }
+                else if (board.map[i][j] == 4) {
+                    Board temp;
+                    temp = board;
+                    Board test;
+                    h.move(temp, i, j, player);
+                    for (int k = 0; k < 10; k++) {
+                        for (int m = 0; m < 9; m++) {
+                            if (temp.map[k][m] > 9) {
+                                test = board;
+                                test = h.change(test, i, j, k, m, player);
+                                test = nextmove(test, player);
+                                if (test.findKingValue(player) > 10)
+                                    isTrue = true;
+                                else {
+                                    isTrue = false;
+                                    jump = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (jump == true)
+                            break;
+                    }
+                    if (jump == true)
+                        break;
+                }
+                else if (board.map[i][j] == 5) {
+                    Board temp;
+                    temp = board;
+                    Board test;
+                    e.move(temp, i, j, player);
+                    for (int k = 0; k < 10; k++) {
+                        for (int m = 0; m < 9; m++) {
+                            if (temp.map[k][m] > 9) {
+                                test = board;
+                                test = e.change(test, i, j, k, m, player);
+                                test = nextmove(test, player);
+                                if (test.findKingValue(player) > 10)
+                                    isTrue = true;
+                                else {
+                                    isTrue = false;
+                                    jump = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (jump == true)
+                            break;
+                    }
+                    if (jump == true)
+                        break;
+                }
+                else if (board.map[i][j] == 6) {
+                Board temp;
+                temp = board;
+                Board test;
+                a.move(temp, i, j, player);
+                for (int k = 0; k < 10; k++) {
+                    for (int m = 0; m < 9; m++) {
+                        if (temp.map[k][m] > 9) {
+                            test = board;
+                            test = a.change(test, i, j, k, m, player);
+                            test = nextmove(test, player);
+                            if (test.findKingValue(player) > 10)
+                                isTrue = true;
+                            else {
+                                isTrue = false;
+                                jump = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (jump == true)
+                        break;
+                }
+                if (jump == true)
+                    break;
+                }
+                else if (board.map[i][j] == 7) {
+                Board temp;
+                temp = board;
+                Board test;
+                g.move(temp, i, j, player);
+                for (int k = 0; k < 10; k++) {
+                    for (int m = 0; m < 9; m++) {
+                        if (test.map[k][m] > 9) {
+                            test = board;
+                            test = g.change(test, i, j, k, m, player);
+                            test = nextmove(test, player);
+                            if (test.findKingValue(player) > 10)
+                                isTrue = true;
+                            else {
+                                isTrue = false;
+                                jump = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (jump == true)
+                        break;
+                }
+                if (jump == true)
+                    break;
+                }
+            }
+        }
+        if (jump == true)
+            break;
+    }
+    return isTrue;
 }
 bool GameManager::kingDie(const Board& board, bool player) {
     for (int i = 0; i < 10; i++) {

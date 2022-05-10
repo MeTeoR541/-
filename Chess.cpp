@@ -50,29 +50,61 @@ Soldier::Soldier() :Chess(1) {
 void Soldier::move(Board& board, int x, int y, bool nowplayer) {
 	if (nowplayer == true) {
 		if (x >= 5) {
-			if (x + 1 < 10)
-				board.map[x + 1][y] += 10;
-			if (y + 1 < 9)
-				board.map[x][y + 1] += 10;
-			if (y - 1 >= 0)
-				board.map[x][y - 1] += 10;
+			if (x + 1 < 10) {
+				if (board.map[x + 1][y] % 10 != 0 && board.BorR[x + 1][y] != nowplayer)
+					board.map[x + 1][y] += 10;
+				else if(board.map[x + 1][y] % 10 == 0)
+					board.map[x + 1][y] += 10;
+			}
+			if (y + 1 < 9) {
+				if (board.map[x][y + 1] % 10 != 0 && board.BorR[x][y + 1] != nowplayer)
+					board.map[x][y + 1] += 10;
+				else if(board.map[x][y + 1]%10==0)
+					board.map[x][y + 1] += 10;
+			}
+			if (y - 1 >= 0) {
+				if (board.map[x][y - 1] % 10 != 0 && board.BorR[x][y - 1] != nowplayer)
+					board.map[x][y - 1] += 10;
+				else if (board.map[x][y - 1] % 10 == 0)
+					board.map[x][y - 1] += 10;
+			}
 			return;
 		}
-		if (x + 1 < 10)
-			board.map[x + 1][y] += 10;
+		if (x + 1 < 10) {
+			if (board.map[x + 1][y] % 10 != 0 && board.BorR[x + 1][y] != nowplayer)
+				board.map[x + 1][y] += 10;
+			else if (board.map[x + 1][y] % 10 == 0)
+				board.map[x + 1][y] += 10;
+		}
 		return;
 	}
 	if (x <= 4) {
-		if (x - 1 >= 0)
-			board.map[x - 1][y] += 10;
-		if (y + 1 < 9)
-			board.map[x][y + 1] += 10;
-		if (y - 1 >= 0)
-			board.map[x][y - 1] += 10;
+		if (x - 1 >= 0) {
+			if (board.map[x - 1][y] % 10 != 0 && board.BorR[x - 1][y] != nowplayer)
+				board.map[x - 1][y] += 10;
+			else if (board.map[x - 1][y] % 10 == 0)
+				board.map[x - 1][y] += 10;
+		}
+		if (y + 1 < 9) {
+			if (board.map[x][y + 1] % 10 != 0 && board.BorR[x][y + 1] != nowplayer)
+				board.map[x][y + 1] += 10;
+			else if (board.map[x][y + 1] % 10 == 0)
+				board.map[x][y + 1] += 10;
+		}
+		if (y - 1 >= 0) {
+			if (board.map[x][y - 1] % 10 != 0 && board.BorR[x][y - 1] != nowplayer)
+				board.map[x][y - 1] += 10;
+			else if (board.map[x][y - 1] % 10 == 0)
+				board.map[x][y - 1] += 10;
+		}
 		return;
 	}
-	if (x - 1 >= 0)
-		board.map[x - 1][y] += 10;
+	if (x - 1 >= 0) {
+		if (board.map[x - 1][y] % 10 != 0 && board.BorR[x - 1][y] != nowplayer)
+			board.map[x - 1][y] += 10;
+		else if (board.map[x - 1][y] % 10 == 0)
+			board.map[x - 1][y] += 10;
+	}
 	return;
 }
 Cannon::Cannon() : Chess(2) {
@@ -204,7 +236,7 @@ void Horse::move(Board& board, int x, int y, bool nowplayer) {
 		}
 	}
 	if (x - 1 >= 0 && y + 2 < 9) {
-		if (board.map[x][y - 1] % 10 == 0) {
+		if (board.map[x][y + 1] % 10 == 0) {
 			if (board.map[x - 1][y + 2] % 10 == 0 || board.BorR[x - 1][y + 2] != nowplayer)
 				board.map[x - 1][y + 2] += 10;
 		}

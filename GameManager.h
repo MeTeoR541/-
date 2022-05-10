@@ -31,8 +31,12 @@ public:
 
 	void paintEvent(QPaintEvent*);
 	void mouseReleaseEvent(QMouseEvent* event);
+	
+	Board nextmove(const Board& board, bool player);
 	bool cantmove(const Board& board, bool player);
+	bool movewillDie(const Board& board, bool player);
 	bool kingDie(const Board& board, bool player);
+	
 	void playGameManger();
 
 };

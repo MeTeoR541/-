@@ -57,6 +57,15 @@ public:
 		}
 		return *this;
 	}
+	int findKingValue(bool player) {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (map[i][j] % 10 == 7 && BorR[i][j] == player)
+					return map[i][j];
+			}
+		}
+		return 0;
+	}
 	int map[10][9];
 	bool BorR[10][9];//true代表黑方；false代表紅方
 };
