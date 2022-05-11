@@ -35,12 +35,16 @@ void GameManager::paintEvent(QPaintEvent*) {
     this->setMinimumHeight(510);
     if (now_where == 0)
         viewer.drawhomepage(painter);
-    else if (isEnd == true)
+    else if (isEnd == true) {
+        viewer.drawBoard(painter, board);
         viewer.drawWinMessage(painter, winner);
+    }
     else if (now_where == 1)
         viewer.drawBoard(painter, board);
-    else if (now_where == 2)
+    else if (now_where == 2) {
+        viewer.drawBoard(painter, board);
         viewer.drawCheckMessage(painter, !current_player);
+    }
 }
 void GameManager::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() != Qt::LeftButton)
