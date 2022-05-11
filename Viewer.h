@@ -12,7 +12,8 @@ using namespace std;
 class Viewer{
 public:
 	Viewer();
-	void drawWinMessage(bool winner);
+	void drawWinMessage(QPainter& ptr,bool winner);
+	void drawCheckMessage(QPainter& ptr, bool winner);
 
 	void drawhomepage(QPainter& ptr);
 	void drawChess(QPainter& ptr, int x, int y, int value, bool whoose);

@@ -57,6 +57,16 @@ public:
 		}
 		return *this;
 	}
+	Board operator+(const Board& add) {
+		Board temp = *this;
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (temp.map[i][j] != add.map[i][j])
+					temp.map[i][j] = temp.map[i][j] + add.map[i][j] / 10 * 10;
+			}
+		}
+		return temp;
+	}
 	int findKingValue(bool player) {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 9; j++) {

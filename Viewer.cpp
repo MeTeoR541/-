@@ -1,9 +1,32 @@
 ﻿#include "Viewer.h"
 Viewer::Viewer(){
 }
-void Viewer::drawWinMessage(bool winner) {
+void Viewer::drawWinMessage(QPainter& ptr, bool winner) {
     if (winner == true) {
-
+        ptr.setBrush(QColor(238, 239, 235));
+        ptr.drawRect(155, 165, 150, 130);
+        ptr.setBrush(QColor(0, 0, 0));
+        ptr.drawRect(170, 250, 50, 30);
+        ptr.drawRect(240, 250, 50, 30);
+    }
+    else {
+        ptr.setBrush(QColor(238, 239, 235));
+        ptr.drawRect(155, 165, 150, 130);
+        ptr.setBrush(QColor(255, 0, 0));
+        ptr.drawRect(170, 250, 50, 30);
+        ptr.drawRect(240, 250, 50, 30);
+    }
+}
+void Viewer::drawCheckMessage(QPainter& ptr, bool winner) {
+    ptr.setBrush(QColor(238, 239, 235));
+    ptr.drawRect(155, 165, 150, 130);
+    ptr.setBrush(QColor(238, 0, 0));
+    ptr.drawRect(240, 250, 50, 30);
+    if (winner == true) {
+        ptr.drawText(180, 195, "黑方將軍");
+    }
+    else {
+        ptr.drawText(180, 195, "紅方將軍");
     }
 }
 void Viewer::drawhomepage(QPainter& ptr) {

@@ -1,6 +1,7 @@
 ﻿#include "GameManager.h"
 GameManager::GameManager(QWidget* parent) :QWidget(parent){
 	current_player = false;
+    winner = false;
 	isEnd = false;
     pick = false;
     now_where = 0;
@@ -23,8 +24,10 @@ void GameManager::newGame() {
     current_player = false;
     isEnd = false;
     pick = false;
+    winner = false;
     Board newboard;
     this->board = newboard;
+    temp_board = newboard;
 }
 void GameManager::paintEvent(QPaintEvent*) {
     QPainter painter(this);
@@ -32,11 +35,15 @@ void GameManager::paintEvent(QPaintEvent*) {
     this->setMinimumHeight(510);
     if (now_where == 0)
         viewer.drawhomepage(painter);
+    else if (isEnd == true)
+        viewer.drawWinMessage(painter, winner);
     else if (now_where == 1)
         viewer.drawBoard(painter, board);
+    else if (now_where == 2)
+        viewer.drawCheckMessage(painter, !current_player);
 }
 void GameManager::mouseReleaseEvent(QMouseEvent* event) {
-    if (event->button() != Qt::LeftButton || isEnd == true)
+    if (event->button() != Qt::LeftButton)
         return;
     QPoint temp = event->pos();
     now = temp;
@@ -48,6 +55,24 @@ void GameManager::mouseReleaseEvent(QMouseEvent* event) {
         }
         else if (now.y() >= 430 && now.y() <= 480 && now.x() <= 150 && now.x() >= 30)
             close();
+    }
+    else if (isEnd == true) {
+        if (now.y() >= 250 && now.y() <= 280 && now.x() <= 220 && now.x() >= 170) {
+            now_where = 1;
+            newGame();
+            update();
+        }
+        else if (now.y() >= 250 && now.y() <= 280 && now.x() <= 290 && now.x() >= 240) {
+            now_where = 0;
+            isEnd = false;
+            update();
+        }
+    }
+    else if (now_where == 2) {
+        if (now.y() >= 250 && now.y() <= 280 && now.x() <= 290 && now.x() >= 240) {
+            now_where = 1;
+            update();
+        }
     }
     else if(now_where==1)
         playGameManger();
@@ -103,7 +128,6 @@ void GameManager::playGameManger() {
     }
     else if (board.map[y][x] != 0 && board.map[y][x] < 10 && board.BorR[y][x] == current_player) {
         board = temp_board;
-        pick = false;
         temp_board = board;
         temp_x = x;
         temp_y = y;
@@ -153,8 +177,13 @@ void GameManager::playGameManger() {
         current_player = !current_player;
         temp_board = board;
         pick = false;
-        if (cantmove(board, current_player) || kingDie(board, current_player) || movewillDie(board, current_player))
+        if (cantmove(board, current_player) || kingDie(board, current_player) || movewillDie(board, current_player)) {
             isEnd = true;
+            winner = !current_player;
+        }
+        else if (Check(board, !current_player)) {
+            now_where = 2;
+        }
         update();
     }
     else {
@@ -162,6 +191,16 @@ void GameManager::playGameManger() {
         pick = false;
         update();
     }
+}
+bool GameManager::Check(const Board& board, bool player) {
+    Board temp = nextmove(board, player);
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (temp.map[i][j] > 9 && temp.map[i][j] % 10 == 7)
+                return true;
+        }
+    }
+    return false;
 }
 bool GameManager::cantmove(const Board& board, bool player) {
     Soldier s;
@@ -176,29 +215,31 @@ bool GameManager::cantmove(const Board& board, bool player) {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 9; j++) {
             if (temp.map[i][j] % 10 != 0 && temp.BorR[i][j] == player) {
+                Board add = board;
                 switch (temp.map[i][j]) {
                 case 1:
-                    s.move(temp, i, j, current_player);
+                    s.move(add, i, j, current_player);
                     break;
                 case 2:
-                    c.move(temp, i, j, current_player);
+                    c.move(add, i, j, current_player);
                     break;
                 case 3:
-                    r.move(temp, i, j, current_player);
+                    r.move(add, i, j, current_player);
                     break;
                 case 4:
-                    h.move(temp, i, j, current_player);
+                    h.move(add, i, j, current_player);
                     break;
                 case 5:
-                    e.move(temp, i, j, current_player);
+                    e.move(add, i, j, current_player);
                     break;
                 case 6:
-                    a.move(temp, i, j, current_player);
+                    a.move(add, i, j, current_player);
                     break;
                 case 7:
-                    g.move(temp, i, j, current_player);
+                    g.move(add, i, j, current_player);
                     break;
                 }
+                temp = temp + add;
             }
         }
     }
@@ -223,29 +264,31 @@ Board GameManager::nextmove(const Board& board, bool player) {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 9; j++) {
             if (temp.map[i][j] % 10 != 0 && temp.BorR[i][j] == player) {
+                Board add = board;
                 switch (temp.map[i][j]) {
                 case 1:
-                    s.move(temp, i, j, !player);
+                    s.move(add, i, j, player);
                     break;
                 case 2:
-                    c.move(temp, i, j, !player);
+                    c.move(add, i, j, player);
                     break;
                 case 3:
-                    r.move(temp, i, j, !player);
+                    r.move(add, i, j, player);
                     break;
                 case 4:
-                    h.move(temp, i, j, !player);
+                    h.move(add, i, j, player);
                     break;
                 case 5:
-                    e.move(temp, i, j, !player);
+                    e.move(add, i, j, player);
                     break;
                 case 6:
-                    a.move(temp, i, j, !player);
+                    a.move(add, i, j, player);
                     break;
                 case 7:
-                    g.move(temp, i, j, !player);
+                    g.move(add, i, j, player);
                     break;
                 }
+                temp = temp + add;
             }
         }
     }
