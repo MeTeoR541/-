@@ -204,4 +204,7 @@ void Viewer::drawBoard(QPainter& ptr, const Board& board) {
             drawChess(ptr, 30 + j * 50, 30 + i * 50, board.map[i][j], board.BorR[i][j]);
         }
     }
+
+    ptr.drawRect(480, 30, 120, 40);
+    ptr.drawRect(480, 440, 120, 40);
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <fstream>
 #include <QDialog>
 #include <vector>
 #include <QWidget>
@@ -14,6 +16,9 @@ using namespace std;
 class GameManager :public QWidget{
 	Q_OBJECT
 private:
+	ofstream record;
+	int file_num;
+
 	QPoint now;
 	Board temp_board;
 	int now_value;
@@ -27,6 +32,8 @@ public:
 	Board board;
 	vector<Chess>chess;
 	Viewer viewer;
+	
+	void Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player);
 	GameManager(QWidget* parent = 0);
 	void newGame();
 
@@ -40,5 +47,4 @@ public:
 	bool kingDie(const Board& board, bool player);
 	
 	void playGameManger();
-
 };

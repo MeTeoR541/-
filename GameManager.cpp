@@ -5,6 +5,7 @@ GameManager::GameManager(QWidget* parent) :QWidget(parent){
 	isEnd = false;
     pick = false;
     now_where = 0;
+    file_num = 0;
     Soldier s;
     chess.push_back(s);
     Cannon c;
@@ -28,6 +29,66 @@ void GameManager::newGame() {
     Board newboard;
     this->board = newboard;
     temp_board = newboard;
+    file_num++;
+    string num = to_string(file_num);
+    record.open(num + ".txt");
+}
+void GameManager::Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player) {
+    string temp;
+    if (player == true) {
+        temp += "Player: 2, Action: ";
+        switch(chessValue) {
+        case 1:
+            temp += "Soldier ";
+            break;
+        case 2:
+            temp += "Cannon ";
+            break;
+        case 3:
+            temp += "Chariot ";
+            break;
+        case 4:
+            temp += "Horse ";
+            break;
+        case 5:
+            temp += "Elephant ";
+            break;
+        case 6:
+            temp += "Advisor ";
+            break;
+        case 7:
+            temp += "General ";
+            break;
+        }
+    }
+    else {
+        temp += "Player: 1, Action: ";
+        switch (chessValue) {
+        case 1:
+            temp += "Soldier ";
+            break;
+        case 2:
+            temp += "Cannon ";
+            break;
+        case 3:
+            temp += "Chariot ";
+            break;
+        case 4:
+            temp += "Horse ";
+            break;
+        case 5:
+            temp += "Elephant ";
+            break;
+        case 6:
+            temp += "Advisor ";
+            break;
+        case 7:
+            temp += "General ";
+            break;
+        }
+    }
+    temp += "(" + to_string(from_x) + ", " + to_string(from_y) + ") -> (" + to_string(to_x) + ", " + to_string(to_y) + ")\n";
+    record << temp;
 }
 void GameManager::paintEvent(QPaintEvent*) {
     QPainter painter(this);
@@ -36,6 +97,11 @@ void GameManager::paintEvent(QPaintEvent*) {
     if (now_where == 0)
         viewer.drawhomepage(painter);
     else if (isEnd == true) {
+        if (winner == true)
+            record << "Black Win\n";
+        else
+            record << "Red Win\n";
+        record.close();
         viewer.drawBoard(painter, board);
         viewer.drawWinMessage(painter, winner);
     }
@@ -78,8 +144,21 @@ void GameManager::mouseReleaseEvent(QMouseEvent* event) {
             update();
         }
     }
-    else if(now_where==1)
-        playGameManger();
+    else if (now_where == 1) {
+        if (now.y() >= 30 && now.y() <= 70 && now.x() <= 600 && now.x() >= 480) {
+            isEnd = true;
+            winner = false;
+            update();
+        }
+        else if (now.y() >= 440 && now.y() <= 480 && now.x() <= 600 && now.x() >= 480) {
+            isEnd = true;
+            winner = true;
+            update();
+        }
+        else
+            playGameManger();
+    }
+        
 }
 void GameManager::playGameManger() {
     int x = now.x() - 6;
@@ -178,6 +257,7 @@ void GameManager::playGameManger() {
    else if (board.map[y][x] > 9 && pick == true) {
         Chess r(now_value);
         board = r.change(temp_board, temp_y, temp_x, y, x, current_player);
+        Record(temp_x, temp_y, x, y, now_value, current_player);
         current_player = !current_player;
         temp_board = board;
         pick = false;
