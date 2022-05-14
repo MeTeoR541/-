@@ -9,6 +9,7 @@
 #include <QPainter>
 #include <QPoint>
 #include <QMouseEvent>
+#include <QFileDialog>
 #include "Board.h"
 #include "Chess.h"
 #include "Viewer.h"
@@ -33,6 +34,7 @@ public:
 	vector<Chess>chess;
 	Viewer viewer;
 	
+	void ReadGame();
 	void Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player);
 	GameManager(QWidget* parent = 0);
 	void newGame();

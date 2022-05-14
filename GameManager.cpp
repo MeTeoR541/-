@@ -33,6 +33,48 @@ void GameManager::newGame() {
     string num = to_string(file_num);
     record.open(num + ".txt");
 }
+void GameManager::ReadGame() {
+    QString name = QFileDialog::getOpenFileName(this, tr("選擇檔案"), "./", tr("Text Files(*.txt)"));
+    if (name.isEmpty()) {
+        return;
+    }
+    else {
+        now_where = 1;
+        ifstream readfile;
+        readfile.open(name.toStdString());
+        string text ,nowChess;
+        int player;
+        int fx, fy, tx, ty;
+        Board temp;
+        string chessName[7] = { "Soldier","Cannon","Chariot","Horse","Elephant","Advisor","General" };
+        while (readfile >> text) {
+            if (text != "Player:") {
+                board = temp;
+                isEnd = true;
+                if (text == "Black")
+                    winner = true;
+                else
+                    winner = false;
+                readfile >> text;
+                update();
+            }
+            else {
+                char dot;
+                readfile >> player >> dot >> text >> nowChess >> dot >> fx >> dot >> fy >> dot >> text >> dot >> tx >> dot >> ty >> dot;
+                for (int i = 0; i < 7; i++) {
+                    if (chessName[i] == nowChess) {
+                        Chess r(i + 1);
+                        if (player == 1)
+                            temp = r.change(temp, fy, fx, ty, tx, false);
+                        else
+                            temp = r.change(temp, fy, fx, ty, tx, true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 void GameManager::Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player) {
     string temp;
     if (player == true) {
@@ -123,16 +165,20 @@ void GameManager::mouseReleaseEvent(QMouseEvent* event) {
             newGame();
             update();
         }
+        else if (now.y() >= 350 && now.y() <= 400 && now.x() <= 150 && now.x() >= 30) {
+            ReadGame();
+            update();
+        }
         else if (now.y() >= 430 && now.y() <= 480 && now.x() <= 150 && now.x() >= 30)
             close();
     }
     else if (isEnd == true) {
-        if (now.y() >= 250 && now.y() <= 280 && now.x() <= 220 && now.x() >= 170) {
+        if (now.y() >= 250 && now.y() <= 280 && now.x() <= 540 && now.x() >= 490) {
             now_where = 1;
             newGame();
             update();
         }
-        else if (now.y() >= 250 && now.y() <= 280 && now.x() <= 290 && now.x() >= 240) {
+        else if (now.y() >= 250 && now.y() <= 280 && now.x() <= 610 && now.x() >= 560) {
             now_where = 0;
             isEnd = false;
             update();

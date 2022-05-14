@@ -1,20 +1,39 @@
 ﻿#include "Viewer.h"
 Viewer::Viewer(){
+    blackS.load("blackS.png");
+    blackC.load("blackC.png");
+    blackR.load("blackR.png");
+    blackE.load("blackE.png");
+    blackH.load("blackH.png");
+    blackA.load("blackA.png");
+    blackG.load("blackG.png");
+    redS.load("redS.png");
+    redC.load("redC.png");
+    redR.load("redR.png");
+    redE.load("redE.png");
+    redH.load("redH.png");
+    redA.load("redA.png");
+    redG.load("redG.png");
+
+    start.load("start.png");
+    read.load("read.png");
+    end.load("end.png");
+    lose.load("lose.png");
 }
 void Viewer::drawWinMessage(QPainter& ptr, bool winner) {
     if (winner == true) {
         ptr.setBrush(QColor(238, 239, 235));
-        ptr.drawRect(155, 165, 150, 130);
+        ptr.drawRect(475, 165, 150, 130);
         ptr.setBrush(QColor(0, 0, 0));
-        ptr.drawRect(170, 250, 50, 30);
-        ptr.drawRect(240, 250, 50, 30);
+        ptr.drawRect(490, 250, 50, 30);
+        ptr.drawRect(560, 250, 50, 30);
     }
     else {
         ptr.setBrush(QColor(238, 239, 235));
-        ptr.drawRect(155, 165, 150, 130);
+        ptr.drawRect(475, 165, 150, 130);
         ptr.setBrush(QColor(255, 0, 0));
-        ptr.drawRect(170, 250, 50, 30);
-        ptr.drawRect(240, 250, 50, 30);
+        ptr.drawRect(490, 250, 50, 30);
+        ptr.drawRect(560, 250, 50, 30);
     }
 }
 void Viewer::drawCheckMessage(QPainter& ptr, bool winner) {
@@ -30,78 +49,55 @@ void Viewer::drawCheckMessage(QPainter& ptr, bool winner) {
     }
 }
 void Viewer::drawhomepage(QPainter& ptr) {
-    ptr.setBrush(QColor(238, 239, 235));
-    ptr.drawRect(30, 270, 120, 50);
-    ptr.drawRect(30, 350, 120, 50);
-    ptr.drawRect(30, 430, 120, 50);
+    ptr.drawPixmap(30, 270, 120, 50, start);
+    ptr.drawPixmap(30, 350, 120, 50, read);
+    ptr.drawPixmap(30, 430, 120, 50, end);
 }
 void Viewer::drawChess(QPainter& ptr, int x, int y, int value, bool whoose) {
     if (value > 9) {
         if (value % 10 != 0) {
-            if (whoose == true)
-                ptr.setPen(QColor(0, 0, 0));
-            else
-                ptr.setPen(QColor(255, 0, 0));
             switch (value % 10) {
             case 1:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "卒");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackS);
                 else
-                    ptr.drawText(x, y, "兵");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redS);
                 break;
             case 2:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "包");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackC);
                 else
-                    ptr.drawText(x, y, "砲");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redC);
                 break;
             case 3:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "車");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackR);
                 else
-                    ptr.drawText(x, y, "俥");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redR);
                 break;
             case 4:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
-                ptr.drawText(x, y, "馬");
+                if (whoose == true)
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackH);
+                else
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redH);
                 break;
             case 5:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "象");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackE);
                 else
-                    ptr.drawText(x, y, "相");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redE);
                 break;
             case 6:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "士");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackA);
                 else
-                    ptr.drawText(x, y, "仕");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redA);
                 break;
             case 7:
-                ptr.drawEllipse(x - 24, y - 24, 48, 48);
-                ptr.drawEllipse(x - 22, y - 22, 44, 44);
-                ptr.setFont(QFont("FangSong"));
                 if (whoose == true)
-                    ptr.drawText(x, y, "將");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, blackG);
                 else
-                    ptr.drawText(x, y, "帥");
+                    ptr.drawPixmap(x - 24, y - 24, 48, 48, redG);
                 break;
             }
             ptr.setPen(QColor(220, 0, 0));
@@ -113,70 +109,48 @@ void Viewer::drawChess(QPainter& ptr, int x, int y, int value, bool whoose) {
         }
     }
     else if (value != 0) {
-        if (whoose == true)
-            ptr.setPen(QColor(0, 0, 0));
-        else
-            ptr.setPen(QColor(255, 0, 0));
         switch (value % 10) {
         case 1:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "卒");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackS);
             else
-                ptr.drawText(x, y, "兵");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redS);
             break;
         case 2:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "包");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackC);
             else
-                ptr.drawText(x, y, "砲");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redC);
             break;
         case 3:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "車");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackR);
             else
-                ptr.drawText(x, y, "俥");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redR);
             break;
         case 4:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
-            ptr.drawText(x, y, "馬");
+            if (whoose == true)
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackH);
+            else
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redH);
             break;
         case 5:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "象");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackE);
             else
-                ptr.drawText(x, y, "相");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redE);
             break;
         case 6:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "士");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackA);
             else
-                ptr.drawText(x, y, "仕");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redA);
             break;
         case 7:
-            ptr.drawEllipse(x - 24, y - 24, 48, 48);
-            ptr.drawEllipse(x - 22, y - 22, 44, 44);
-            ptr.setFont(QFont("FangSong"));
             if (whoose == true)
-                ptr.drawText(x, y, "將");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, blackG);
             else
-                ptr.drawText(x, y, "帥");
+                ptr.drawPixmap(x - 24, y - 24, 48, 48, redG);
             break;
         }
     }
@@ -205,6 +179,6 @@ void Viewer::drawBoard(QPainter& ptr, const Board& board) {
         }
     }
 
-    ptr.drawRect(480, 30, 120, 40);
-    ptr.drawRect(480, 440, 120, 40);
+    ptr.drawPixmap(480, 30, 120, 40, lose);
+    ptr.drawPixmap(480, 440, 120, 40, lose);
 }
