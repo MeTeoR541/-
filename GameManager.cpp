@@ -457,7 +457,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                             if (temp.map[k][m] > 9) {
                                 test = board;
                                 test = s.change(test, i, j, k, m, player);
-                                test = nextmove(test, player);
+                                test = nextmove(test, !player);
                                 if (test.findKingValue(player) > 10)
                                     isTrue = true;
                                 else {
@@ -483,7 +483,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                             if (temp.map[k][m] > 9) {
                                 test = board;
                                 test = c.change(test, i, j, k, m, player);
-                                test = nextmove(test, player);
+                                test = nextmove(test, !player);
                                 if (test.findKingValue(player) > 10)
                                     isTrue = true;
                                 else {
@@ -509,7 +509,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                             if (temp.map[k][m] > 9) {
                                 test = board;
                                 test = r.change(test, i, j, k, m, player);
-                                test = nextmove(test, player);
+                                test = nextmove(test, !player);
                                 if (test.findKingValue(player) > 10)
                                     isTrue = true;
                                 else {
@@ -535,7 +535,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                             if (temp.map[k][m] > 9) {
                                 test = board;
                                 test = h.change(test, i, j, k, m, player);
-                                test = nextmove(test, player);
+                                test = nextmove(test, !player);
                                 if (test.findKingValue(player) > 10)
                                     isTrue = true;
                                 else {
@@ -561,7 +561,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                             if (temp.map[k][m] > 9) {
                                 test = board;
                                 test = e.change(test, i, j, k, m, player);
-                                test = nextmove(test, player);
+                                test = nextmove(test, !player);
                                 if (test.findKingValue(player) > 10)
                                     isTrue = true;
                                 else {
@@ -587,7 +587,7 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                         if (temp.map[k][m] > 9) {
                             test = board;
                             test = a.change(test, i, j, k, m, player);
-                            test = nextmove(test, player);
+                            test = nextmove(test, !player);
                             if (test.findKingValue(player) > 10)
                                 isTrue = true;
                             else {
@@ -610,10 +610,10 @@ bool GameManager::movewillDie(const Board& board, bool player) {
                 g.move(temp, i, j, player);
                 for (int k = 0; k < 10; k++) {
                     for (int m = 0; m < 9; m++) {
-                        if (test.map[k][m] > 9) {
+                        if (temp.map[k][m] > 9) {
                             test = board;
                             test = g.change(test, i, j, k, m, player);
-                            test = nextmove(test, player);
+                            test = nextmove(test, !player);
                             if (test.findKingValue(player) > 10)
                                 isTrue = true;
                             else {
