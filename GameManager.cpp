@@ -64,15 +64,25 @@ void GameManager::ReadGame() {
                 for (int i = 0; i < 7; i++) {
                     if (chessName[i] == nowChess) {
                         Chess r(i + 1);
-                        if (player == 1)
+                        if (player == 1) {
                             temp = r.change(temp, fy, fx, ty, tx, false);
-                        else
+                            current_player = true;
+                            board = temp;
+                        }
+                        else {
                             temp = r.change(temp, fy, fx, ty, tx, true);
+                            current_player = false;
+                            board = temp;
+                        }
+                        now_where = 1;
+                        pick = false;
+                        temp_board = board;
                         break;
                     }
                 }
             }
         }
+        record.open(name.toStdString(),ios::app);
     }
 }
 void GameManager::Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player) {

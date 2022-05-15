@@ -19,6 +19,8 @@ Viewer::Viewer(){
     read.load("read.png");
     end.load("end.png");
     lose.load("lose.png");
+    blackcheck.load("blackcheck.png");
+    redcheck.load("redcheck.png");
 }
 void Viewer::drawWinMessage(QPainter& ptr, bool winner) {
     if (winner == true) {
@@ -37,15 +39,11 @@ void Viewer::drawWinMessage(QPainter& ptr, bool winner) {
     }
 }
 void Viewer::drawCheckMessage(QPainter& ptr, bool winner) {
-    ptr.setBrush(QColor(238, 239, 235));
-    ptr.drawRect(155, 165, 150, 130);
-    ptr.setBrush(QColor(238, 0, 0));
-    ptr.drawRect(240, 250, 50, 30);
     if (winner == true) {
-        ptr.drawText(180, 195, "黑方將軍");
+        ptr.drawPixmap(155, 165, 150, 130, blackcheck);
     }
     else {
-        ptr.drawText(180, 195, "紅方將軍");
+        ptr.drawPixmap(155, 165, 150, 130, redcheck);
     }
 }
 void Viewer::drawhomepage(QPainter& ptr) {

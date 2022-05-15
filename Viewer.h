@@ -31,6 +31,8 @@ private:
 	QPixmap read;
 	QPixmap end;
 	QPixmap lose;
+	QPixmap redcheck;
+	QPixmap blackcheck;
 public:
 	Viewer();
 	void drawWinMessage(QPainter& ptr,bool winner);
