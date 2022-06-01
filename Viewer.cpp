@@ -21,21 +21,17 @@ Viewer::Viewer(){
     lose.load("lose.png");
     blackcheck.load("blackcheck.png");
     redcheck.load("redcheck.png");
+    
+    point.load("point.png");
+    blackwin.load("blackwin.png");
+    redwin.load("redwin.png");
 }
 void Viewer::drawWinMessage(QPainter& ptr, bool winner) {
     if (winner == true) {
-        ptr.setBrush(QColor(238, 239, 235));
-        ptr.drawRect(475, 165, 150, 130);
-        ptr.setBrush(QColor(0, 0, 0));
-        ptr.drawRect(490, 250, 50, 30);
-        ptr.drawRect(560, 250, 50, 30);
+        ptr.drawPixmap(475, 165, 150, 130, blackwin);
     }
     else {
-        ptr.setBrush(QColor(238, 239, 235));
-        ptr.drawRect(475, 165, 150, 130);
-        ptr.setBrush(QColor(255, 0, 0));
-        ptr.drawRect(490, 250, 50, 30);
-        ptr.drawRect(560, 250, 50, 30);
+        ptr.drawPixmap(475, 165, 150, 130, redwin);
     }
 }
 void Viewer::drawCheckMessage(QPainter& ptr, bool winner) {
@@ -98,12 +94,10 @@ void Viewer::drawChess(QPainter& ptr, int x, int y, int value, bool whoose) {
                     ptr.drawPixmap(x - 24, y - 24, 48, 48, redG);
                 break;
             }
-            ptr.setPen(QColor(220, 0, 0));
-            ptr.drawEllipse(x - 12, y - 12, 24, 24);
+            ptr.drawPixmap(x - 12, y - 12, 24, 24, point);
         }
         else {
-            ptr.setPen(QColor(220, 0, 0));
-            ptr.drawEllipse(x - 12, y - 12, 24, 24);
+            ptr.drawPixmap(x - 12, y - 12, 24, 24, point);
         }
     }
     else if (value != 0) {
@@ -154,6 +148,7 @@ void Viewer::drawChess(QPainter& ptr, int x, int y, int value, bool whoose) {
     }
 }
 void Viewer::drawBoard(QPainter& ptr, const Board& board) {
+    
     for (int i = 0; i < 10; i++) {
         ptr.drawLine(30, 30 + i * 50, 430, 30 + i * 50);
     }
@@ -170,13 +165,14 @@ void Viewer::drawBoard(QPainter& ptr, const Board& board) {
     ptr.drawLine(280, 30, 180, 130);
     ptr.drawLine(180, 480, 280, 380);
     ptr.drawLine(280, 480, 180, 380);
-
+    
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 9; j++) {
             drawChess(ptr, 30 + j * 50, 30 + i * 50, board.map[i][j], board.BorR[i][j]);
         }
     }
-
+    
+    
     ptr.drawPixmap(480, 30, 120, 40, lose);
     ptr.drawPixmap(480, 440, 120, 40, lose);
 }
