@@ -40,6 +40,7 @@ void GameManager::ReadGame() {
     }
     else {
         now_where = 1;
+        bool record_end = false;
         ifstream readfile;
         readfile.open(name.toStdString());
         string text ,nowChess;
@@ -56,6 +57,7 @@ void GameManager::ReadGame() {
                 else
                     winner = false;
                 readfile >> text;
+                record_end = true;
                 update();
             }
             else {
@@ -82,7 +84,8 @@ void GameManager::ReadGame() {
                 }
             }
         }
-        record.open(name.toStdString(),ios::app);
+        if (record_end == false)
+            record.open(name.toStdString(), ios::app);
     }
 }
 void GameManager::Record(int from_x, int from_y, int to_x, int to_y, int chessValue, bool player) {
@@ -146,6 +149,7 @@ void GameManager::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     this->setMinimumWidth(460);
     this->setMinimumHeight(510);
+    painter.setRenderHints(QPainter::Antialiasing);
     if (now_where == 0)
         viewer.drawhomepage(painter);
     else if (isEnd == true) {
